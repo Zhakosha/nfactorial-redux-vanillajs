@@ -1,5 +1,5 @@
 import intialProducts from "./api/products.json";
-import { addToCart } from "./actions";
+import { addToCart, checkOut } from "./actions";
 import { getState, subscribe } from "./store";
 
 import "./index.css";
@@ -22,6 +22,12 @@ subscribe(() => {
       cartelem.innerText = `${product.title} - $${product.price} quantity: ${product.inCart}`;
 
       cart.appendChild(cartelem);
+    }
+    else {
+      let cartelem = document.getElementById(`cartelem-${product.id}`);
+        if (cartelem) {
+          cartelem.remove();
+        } 
     }
 
     const productElem = document.getElementById(`productelem-${product.id}`);
@@ -58,6 +64,21 @@ document
   .getElementById("products")
   .addEventListener("click", handleButtonClicked);
 
+document
+  .getElementById("checkout")
+  .addEventListener("click", handleButtonClickedChekout);
+
+
 function handleButtonClicked(event) {
   addToCart(event.target.id);
-}
+};
+
+function handleButtonClickedChekout() {
+  checkOut();
+};
+
+
+
+
+
+
